@@ -1,0 +1,117 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Doctor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Doctor` (
+  `Name` VARCHAR(45) NOT NULL,
+  `Date_of_birth` DATE NOT NULL,
+  `Address` VARCHAR(45) NOT NULL,
+  `Phonenumber` INT ZEROFILL NOT NULL,
+  `Salaryde` DECIMAL(10,2) NOT NULL,
+  PRIMARY KEY (`Name`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Medical`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Medical` (
+  `Overtime_rate` INT NOT NULL,
+  `Doctor_Name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Overtime_rate`),
+  INDEX `fk_Medical_Doctor1_idx` (`Doctor_Name` ASC) VISIBLE,
+  CONSTRAINT `fk_Medical_Doctor1`
+    FOREIGN KEY (`Doctor_Name`)
+    REFERENCES `mydb`.`Doctor` (`Name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Specialist`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Specialist` (
+  `Fieldarea` VARCHAR(45) NOT NULL,
+  `Doctor_Name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Fieldarea`),
+  INDEX `fk_Specialist_Doctor_idx` (`Doctor_Name` ASC) VISIBLE,
+  CONSTRAINT `fk_Specialist_Doctor`
+    FOREIGN KEY (`Doctor_Name`)
+    REFERENCES `mydb`.`Doctor` (`Name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Patient`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Patient` (
+  `Name` VARCHAR(45) NOT NULL,
+  `Adress` VARCHAR(45) NOT NULL,
+  `date_of_birth` DATE NOT NULL,
+  `Phonenumberi` INT ZEROFILL NOT NULL,
+  PRIMARY KEY (`Name`, `Adress`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Appointment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Appointment` (
+  `Date` DATE NOT NULL,
+  `time` DATETIME NOT NULL,
+  `Patient_Name` VARCHAR(45) NOT NULL,
+  `` VARCHAR(45) NULL,
+  PRIMARY KEY (`Date`),
+  INDEX `fk_Appointment_Patient1_idx` (`Patient_Name` ASC, `` ASC) VISIBLE,
+  CONSTRAINT `fk_Appointment_Patient1`
+    FOREIGN KEY (`Patient_Name` , ``)
+    REFERENCES `mydb`.`Patient` (`Name` , `Adress`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Patient_has_Doctor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Patient_has_Doctor` (
+  `Patient_Name` VARCHAR(45) NOT NULL,
+  `Patient_Adress` VARCHAR(45) NOT NULL,
+  `Doctor_Name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`Patient_Name`, `Patient_Adress`, `Doctor_Name`),
+  INDEX `fk_Patient_has_Doctor_Doctor1_idx` (`Doctor_Name` ASC) VISIBLE,
+  INDEX `fk_Patient_has_Doctor_Patient1_idx` (`Patient_Name` ASC, `Patient_Adress` ASC) VISIBLE,
+  CONSTRAINT `fk_Patient_has_Doctor_Patient1`
+    FOREIGN KEY (`Patient_Name` , `Patient_Adress`)
+    REFERENCES `mydb`.`Patient` (`Name` , `Adress`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Patient_has_Doctor_Doctor1`
+    FOREIGN KEY (`Doctor_Name`)
+    REFERENCES `mydb`.`Doctor` (`Name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
