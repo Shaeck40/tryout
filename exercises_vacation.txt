@@ -1,0 +1,27 @@
+q1:select guestname, guestaddress from guest where guestaddress rlike ".*London" order by guestname;
+
+q2:select roomno, type,price from room where price < 40.00 AND
+type IN ('single','double') order  by price;
+
+q3:select * from booking where dateto IS NULL;
+
+q4:select avg(price) as average_price_per_room from room;
+
+q6:
+SELECT COUNT(DISTINCT guestNo) FROM booking  WHERE (datefrom <= "2020-08-01" AND dateto >= "2020-08-01") OR  (datefrom >= "2020-08-01" AND datefrom <= "2020-08-31");
+
+q7:select room.price, room.type from room join hotel on hotel.hotelno = room.hotelno where hotelname ='Latham';
+
+q8:select distinct guestname from guest join booking on guest.guestno=booking.guestno join room on booking.hotelno=room.hotelno JOIN hotel on room
+
+q9:select guest.guestname,room.type, room.roomno, room.type,booking.datefrom, booking.dateto from guest join booking on guest.guestno=booking.g
+uestno join room
+l.hotelno where hotel.hotelname='Latham';
+
+q10:select * from booking join guest on guest.guestno=booking.guestno join hotel on hotel.hotelno = booking.hotelno where DATE(NOW()) between datefrom  and dateto and hotelname = "The Tower Hotel";
+
+q11:select sum(price) from hotel join booking on hotel.hotelno = booking.hotelno join guest on guest.guestno=booking.guestno join room on room.roomno =booking.roomno and room.hotelno = booking.hotelno where DATE(NOW()) between datefrom  and dateto and hotelname = "The Tower Hotel";
+
+q12:select count(*),hotelname from room join hotel on room.hotelno=hotel.hotelno where city = 'London' group by hotelname;
+
+q13: update room set price = price*1.05;
