@@ -18,3 +18,21 @@ $ curl 'https://rest.ensembl.org/sequence/id/ENST00000001146?' -H 'Content-type:
 $ curl 'https://rest.ensembl.org/archive/id' -H 'Content-type:application/json' -H 'Accept:application/json' -X POST -d '{ "id" : ["ENSG00000002587", "ENSG00000003056"] }’
 
 $ curl 'https://rest.ensembl.org/sequence/region/human/7:35182..35431:1?' -H 'Content-type:text/plain'
+
+Return the archived sequence with Ensembl id ENSG00000141510
+Return the archived sequence for both ENSG00000012048 and ENSG00000136997
+Return a condensed XML-list of all orthologues in Mus musculus for ENSG00000159763
+Do the same for BRCA2
+HINTS: type=orthologues
+target_taxon=<taxon_id> or target_species=<species>
+format=condensed
+Retrieve the genomic FASTA sequence for ENST00000288602.10
+Get a sequence from 100 nucleotides located on human chromosome 2 starting at position 100000
+
+$ curl 'https://rest.ensembl.org/archive/id/ENSG00000141510?' -H 'Content-type:application/json’
+$ curl 'https://rest.ensembl.org/archive/id' -H 'Content-type:application/json' -H 'Accept:application/json' -X POST -d '{ "id" : ["ENSG00000012048", "ENSG00000136997"] }’
+
+$ curl 'https://rest.ensembl.org/homology/id/ENSG00000159763?target_species=mus_musculus;type=orthologues;format=condensed' -H 'Content-type:text/xml’
+$ curl 'https://rest.ensembl.org/homology/symbol/human/BRCA2?target_species=mus_musculus;type=orthologues;format=condensed' -H 'Content-type:text/xml’
+␋$ curl 'https://rest.ensembl.org/sequence/id/ENST00000288602?type=genomic' -H 'Content-type:text/x-fasta’
+$ curl 'https://rest.ensembl.org/sequence/region/human/2:100000..100099:1?' -H 'Content-type:text/plain’             
