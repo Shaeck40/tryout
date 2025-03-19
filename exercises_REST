@@ -34,8 +34,8 @@ $ curl 'https://rest.ensembl.org/archive/id' -H 'Content-type:application/json' 
 
 $ curl 'https://rest.ensembl.org/homology/id/ENSG00000159763?target_species=mus_musculus;type=orthologues;format=condensed' -H 'Content-type:text/xml’
 $ curl 'https://rest.ensembl.org/homology/symbol/human/BRCA2?target_species=mus_musculus;type=orthologues;format=condensed' -H 'Content-type:text/xml’
-␋$ curl 'https://rest.ensembl.org/sequence/id/ENST00000288602?type=genomic' -H 'Content-type:text/x-fasta’
-$ curl 'https://rest.ensembl.org/sequence/region/human/2:100000..100099:1?' -H 'Content-type:text/plain’             
+␋$ curl 'https://rest.ensembl.org/sequence/id/ENST00000288602?type=genomic' -H 'Content-type:text/x-fasta'
+$ curl 'https://rest.ensembl.org/sequence/region/human/2:100000..100099:1?' -H 'Content-type:text/plain'             
 
 Show the taxonomy information of the mouse
 Find the species and the database for ENSMUSG00000059552
@@ -44,9 +44,9 @@ Return the length of following chromosomes in human and mouse
 7
 X
 Which are the longest?
-$ curl 'https://rest.ensembl.org/taxonomy/name/mouse?' -H 'Content-type:application/json’
-$ curl 'https://rest.ensembl.org/lookup/id/ENSMUSG00000059552?' -H 'Content-type:application/json’
+$ 'https://rest.ensembl.org/taxonomy/name/mouse' -H 'Content-type:application/json'
+$ curl 'https://rest.ensembl.org/lookup/id/ENSMUSG00000059552?' -H 'Content-type:application/json'
 
-$ curl 'https://rest.ensembl.org/info/assembly/homo_sapiens/2?' -H 'Content-type:application/json’           // change 2 to 7 and x for other chromosomes
-$ curl 'https://rest.ensembl.org/info/assembly/mus_musculus/2?' -H 'Content-type:application/json’           // change 2 to 7 and x for other chromosomes
+$ curl 'https://rest.ensembl.org/info/assembly/homo_sapiens/2?' -H 'Content-type:application/json'          // change 2 to 7 and x for other chromosomes
+$ curl 'https://rest.ensembl.org/info/assembly/mus_musculus/2?' -H 'Content-type:application/json'           // change 2 to 7 and x for other chromosomes
 Look at the length that is returned to determine the longest ones.
